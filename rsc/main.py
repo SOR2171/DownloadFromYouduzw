@@ -12,7 +12,7 @@ headers = {
     "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36 Edg/135.0.0.0"
 }
 re_obj = re.compile(
-    r"t0353_1:'/book/(?P<nextID>.*?)',t0353_index:.*?"
+    r"t[0-9]+_1:'/book/(?P<nextID>.*?)',t[0-9]+_index.*?"
     r'<h1>正文 (?P<title>.*?)</h1>.*?'
     r'</script></div><p>(?P<text>.*?)</p><div class="bar">',
     re.S
@@ -33,7 +33,7 @@ def down_load_start(book_id, name="unnamed"):
             resp.close()
 
             for it in result:
-                if len(it.group("nextID")) == 5:
+                if len(it.group("nextID")) < len(book_id):
                     cycling = False
 
                 book = it.group("nextID").split(".")[0]
